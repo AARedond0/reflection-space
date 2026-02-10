@@ -77,5 +77,29 @@
     <div class="photo">
       <img src="assets/img/SING0024.JPG" alt="Church interior">
     </div>
+    
+<div class="reflection">
+  <div id="prompt">Tap below to receive a reflection.</div>
+  <button onclick="newPrompt()" style="margin-top:14px;padding:10px 14px;border-radius:10px;border:1px solid #d7d2cc;background:#fff;cursor:pointer;">
+    Give me a reflection
+  </button>
+</div>
+<script>
+const prompts = [
+  "Stay long enough to notice what is being given to you.",
+  "Grace often comes quietly. Do not rush past it.",
+  "You are not alone in the searching.",
+  "Let what is beautiful slow you down.",
+  "Return to what steadies you."
+];
+
+function newPrompt() {
+  const random = prompts[Math.floor(Math.random() * prompts.length)];
+  document.getElementById("prompt").innerText = random;
+}
+</script>
+
+</body>
+</html>
 
 
