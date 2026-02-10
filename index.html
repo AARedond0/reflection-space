@@ -178,6 +178,25 @@
     </footer>
 
   </div>
+  <script>
+  const lines = [
+    { text: "Do not rush past what is trying to steady you.", tag: "Presence" },
+    { text: "Grace often arrives quietly.", tag: "Trust" },
+    { text: "Stay long enough to notice what matters.", tag: "Listening" },
+    { text: "You are not alone in the searching.", tag: "Hope" }
+  ];
+
+  let i = 0;
+
+  function rotateLine() {
+    const quote = document.querySelector(".quote");
+    quote.innerHTML = lines[i].text + "<small>" + lines[i].tag + "</small>";
+    i = (i + 1) % lines.length;
+  }
+
+  setInterval(rotateLine, 6000);
+</script>
+
 </body>
 </html>
 
