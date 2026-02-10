@@ -83,6 +83,20 @@
   <button onclick="newPrompt()" style="margin-top:14px;padding:10px 14px;border-radius:10px;border:1px solid #d7d2cc;background:#fff;cursor:pointer;">
     Give me a reflection
   </button>
+  
+  <div style="margin-top:16px;">
+  <div style="font-size:14px;color:#666;margin-bottom:8px;">Quiet timer</div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <button onclick="startTimer(3)" style="padding:8px 10px;border-radius:10px;border:1px solid #d7d2cc;background:#fff;cursor:pointer;">3 min</button>
+    <button onclick="startTimer(5)" style="padding:8px 10px;border-radius:10px;border:1px solid #d7d2cc;background:#fff;cursor:pointer;">5 min</button>
+    <button onclick="startTimer(10)" style="padding:8px 10px;border-radius:10px;border:1px solid #d7d2cc;background:#fff;cursor:pointer;">10 min</button>
+    <button onclick="stopTimer()" style="padding:8px 10px;border-radius:10px;border:1px solid #d7d2cc;background:#fff;cursor:pointer;">Stop</button>
+  </div>
+
+  <div id="timerDisplay" style="margin-top:10px;font-size:16px;"></div>
+</div>
+
 </div>
 <script>
 const prompts = [
@@ -97,6 +111,38 @@ function newPrompt() {
   const random = prompts[Math.floor(Math.random() * prompts.length)];
   document.getElementById("prompt").innerText = random;
 }
+  let timerId = null;
+let remainingSeconds = 0;
+
+function renderTime() {
+  const m = Math.floor(remainingSeconds / 60);
+  const s = remainingSeconds % 60;
+  const mm = String(m).padStart(2, "0");
+  const ss = String(s).padStart(2, "0");
+  document.getElementById("timerDisplay").innerText = "Time: " + mm + ":" + ss;
+}
+
+function startTimer(minutes) {
+  stopTimer();
+  remainingSeconds = minutes * 60;
+  renderTime();
+
+  timerId = setInterval(() => {
+    remainingSeconds -= 1;
+    if (remainingSeconds <= 0) {
+      stopTimer();
+      document.getElementById("timerDisplay").innerText = "Time is up. Stay a moment longer if you want.";
+      return;
+    }
+    renderTime();
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerId) clearInterval(timerId);
+  timerId = null;
+}
+
 </script>
 
 </body>
